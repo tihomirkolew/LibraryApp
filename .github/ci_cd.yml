@@ -1,0 +1,30 @@
+name: Build, Test and Deploy Library App
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout the repository
+      uses: actions/checkout@v4
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v4
+      with:
+        node-version: 20
+        cache: 'npm'
+
+    - name: install dependencies
+      run: npm install
+    - name: Start the Backend
+      run: npm run server &
+    - name: Start the Frontend
+      run: npm run start & 
+    - name: Execute UI tests
+      run: npm run test
