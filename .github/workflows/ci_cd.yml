@@ -20,10 +20,12 @@ jobs:
         node-version: 20
         cache: 'npm'
 
-    - name: install dependencies
+    - name: Install dependencies
       run: npm install
     - name: Install playwright browsers
       run: npx playwright install
+    - name: Change the backend to localhost
+      run: echo "export const settings = {host:\"http://localhost:3030\"}" > src/config.js
     - name: Start the Backend
       run: npm run server &
     - name: Start the Frontend
